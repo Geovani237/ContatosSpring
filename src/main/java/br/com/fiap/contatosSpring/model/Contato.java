@@ -21,6 +21,7 @@ public class Contato {
     private Long id;
     private String nome;
     private String email;
+    private String senha;
     private LocalDate dataNascimento;
 
     public Long getId() {
@@ -53,5 +54,13 @@ public class Contato {
 
     public void setDataNascimento(LocalDate dataNascimento) {
         this.dataNascimento = dataNascimento;
+    }
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
     }
 }
