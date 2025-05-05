@@ -1,5 +1,6 @@
 package br.com.fiap.contatosSpring.controller;
 
+import br.com.fiap.contatosSpring.dto.ContatoExibicaoDto;
 import br.com.fiap.contatosSpring.model.Contato;
 import br.com.fiap.contatosSpring.service.ContatoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,11 @@ public class ContatoController {
         return service.listarTodosOsContatos();
     }
 
+    @GetMapping("/contatos/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public Contato buscarpeloId(@PathVariable Long id) {
+        return service.buscarPorId(id);
+    }
 
     @DeleteMapping("/contatos/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
