@@ -1,14 +1,17 @@
 package br.com.fiap.contatosSpring.controller;
 
+import br.com.fiap.contatosSpring.dto.ContatoCadastroDto;
 import br.com.fiap.contatosSpring.dto.ContatoExibicaoDto;
 import br.com.fiap.contatosSpring.model.Contato;
 import br.com.fiap.contatosSpring.service.ContatoService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api")
@@ -19,8 +22,8 @@ public class ContatoController {
 
     @PostMapping("/contatos")
     @ResponseStatus(HttpStatus.CREATED)
-    public Contato gravar(@RequestBody Contato contato) {
-        return service.gravar(contato);
+    public ContatoExibicaoDto gravar(@RequestBody @Valid ContatoCadastroDto contatoCadastroDto) {
+        return service.gravar(contatoCadastroDto);
     }
 
     @GetMapping("/contatos")
@@ -31,7 +34,7 @@ public class ContatoController {
 
     @GetMapping("/contatos/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public Contato buscarpeloId(@PathVariable Long id) {
+    public ContatoExibicaoDto buscarpeloId(@PathVariable("id") Long id) {
         return service.buscarPorId(id);
     }
 
@@ -47,7 +50,7 @@ public class ContatoController {
         return service.atualizar(contato);
     }
 
-    @GetMapping("/contatos/{nome}")
+    @GetMapping("/contatos/nome/{nome}")
     @ResponseStatus(HttpStatus.OK)
     public Contato buscarContatoPeloNome(@PathVariable String nome) {
         return service.buscarPeloNome(nome);

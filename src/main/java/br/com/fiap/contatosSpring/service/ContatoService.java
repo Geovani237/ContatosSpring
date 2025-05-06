@@ -1,7 +1,10 @@
 package br.com.fiap.contatosSpring.service;
 
+import br.com.fiap.contatosSpring.dto.ContatoCadastroDto;
+import br.com.fiap.contatosSpring.dto.ContatoExibicaoDto;
 import br.com.fiap.contatosSpring.model.Contato;
 import br.com.fiap.contatosSpring.repository.ContatoRepository;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,15 +18,18 @@ public class ContatoService {
     @Autowired
     private ContatoRepository contatoRepository;
 
-    public Contato gravar(Contato contato) {
-        return contatoRepository.save(contato);
+    public ContatoExibicaoDto gravar(ContatoCadastroDto contatoCadastroDto) {
+
+        Contato contato = new Contato();
+        BeanUtils.copyProperties(contatoCadastroDto, contato);
+        return new ContatoExibicaoDto(contatoRepository.save(contato));
     }
 
-    public Contato buscarPorId(Long id){
+    public ContatoExibicaoDto buscarPorId(Long id){
         Optional<Contato> contatoOptional = contatoRepository.findById(id);
 
         if(contatoOptional.isPresent()){
-            return contatoOptional.get();
+            return new ContatoExibicaoDto(contatoOptional.get()) ;
         } else {
             throw new RuntimeException("ID não encontrado");
         }
