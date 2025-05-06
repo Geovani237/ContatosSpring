@@ -2,6 +2,7 @@ package br.com.fiap.contatosSpring.service;
 
 import br.com.fiap.contatosSpring.dto.ContatoCadastroDto;
 import br.com.fiap.contatosSpring.dto.ContatoExibicaoDto;
+import br.com.fiap.contatosSpring.exception.UsuarioNaoEncontradoException;
 import br.com.fiap.contatosSpring.model.Contato;
 import br.com.fiap.contatosSpring.repository.ContatoRepository;
 import org.springframework.beans.BeanUtils;
@@ -31,7 +32,7 @@ public class ContatoService {
         if(contatoOptional.isPresent()){
             return new ContatoExibicaoDto(contatoOptional.get()) ;
         } else {
-            throw new RuntimeException("ID não encontrado");
+            throw new UsuarioNaoEncontradoException("ID não encontrado");
         }
 
     }
