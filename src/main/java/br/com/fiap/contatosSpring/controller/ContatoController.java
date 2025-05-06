@@ -50,15 +50,19 @@ public class ContatoController {
         return service.atualizar(contato);
     }
 
+
     @GetMapping("/contatos/nome/{nome}")
     @ResponseStatus(HttpStatus.OK)
-    public Contato buscarContatoPeloNome(@PathVariable String nome) {
+    public ContatoExibicaoDto buscarContatoPeloNome(@PathVariable String nome) {
         return service.buscarPeloNome(nome);
     }
 
-    @GetMapping("/contatos/{dataInicial}/{dataFinal}")
+    @GetMapping(value = "/contatos",params = {"dataInicio", "dataFinal"})
     @ResponseStatus(HttpStatus.OK)
-    public List<Contato> mostrarAniversariantes(@PathVariable LocalDate dataInicial, @PathVariable LocalDate dataFinal){
-        return service.mostrarAniversariantes(dataInicial, dataFinal);
+    public List<ContatoExibicaoDto> mostrarAniversariantes(
+            @RequestParam LocalDate dataInicio,
+            @RequestParam LocalDate dataFinal
+    ){
+        return service.mostrarAniversariantes(dataInicio, dataFinal);
     }
 }

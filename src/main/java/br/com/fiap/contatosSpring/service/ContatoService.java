@@ -51,8 +51,13 @@ public class ContatoService {
         }
     }
 
-    public List<Contato> mostrarAniversariantes(LocalDate dataInicial, LocalDate dataFinal) {
-        return contatoRepository.findByDataNascimentoBetween(dataInicial, dataFinal);
+    public List<ContatoExibicaoDto> mostrarAniversariantes(LocalDate dataInicio, LocalDate dataFinal) {
+
+        return  contatoRepository
+                .findByDataNascimentoBetween(dataInicio, dataFinal)
+                .stream()
+                .map(ContatoExibicaoDto::new)
+                .toList();
     }
 
     public Contato atualizar(Contato contato) {
@@ -65,13 +70,13 @@ public class ContatoService {
         }
     }
 
-    public Contato buscarPeloNome(String nome) {
+    public ContatoExibicaoDto buscarPeloNome(String nome) {
         Optional<Contato> contatoOptional = contatoRepository.findByNome(nome);
 
         if (contatoOptional.isPresent()){
-            return contatoOptional.get();
+            return new ContatoExibicaoDto(contatoOptional.get()) ;
         } else {
-            throw new RuntimeException("Contato não encontrado");
+            throw new UsuarioNaoEncontradoException("Contato não encontrado");
         }
     }
 }
