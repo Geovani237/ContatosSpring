@@ -7,6 +7,8 @@ import br.com.fiap.contatosSpring.model.Contato;
 import br.com.fiap.contatosSpring.repository.ContatoRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -37,8 +39,10 @@ public class ContatoService {
 
     }
 
-    public List<Contato> listarTodosOsContatos(){
-        return contatoRepository.findAll();
+    public Page<ContatoExibicaoDto> listarTodosOsContatos(Pageable paginacao){
+        return contatoRepository
+                .findAll(paginacao)
+                .map(ContatoExibicaoDto::new);//iterar em uma lista e gerar uma outra lista com dados de outro tipo
     }
 
     public void excluir(Long id){
