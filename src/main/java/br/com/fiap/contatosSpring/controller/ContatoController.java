@@ -65,4 +65,9 @@ public class ContatoController {
     ){
         return service.mostrarAniversariantes(dataInicio, dataFinal);
     }
+
+    @GetMapping(value = "/contatos", params = "email")
+    public ContatoExibicaoDto buscarContatoPeloEmail(@RequestParam String email){
+        return service.buscarContatoPeloEmail(email);
+    }
 }

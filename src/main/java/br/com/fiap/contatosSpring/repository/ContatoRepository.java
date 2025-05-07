@@ -20,4 +20,6 @@ public interface ContatoRepository extends JpaRepository<Contato, Long> {
             @Param("dataInicio") LocalDate dataInicio,
             @Param("dataFinal") LocalDate dataFinal
     );
+
+    Optional<Contato> findByEmail(String email);
 }

@@ -79,4 +79,13 @@ public class ContatoService {
             throw new UsuarioNaoEncontradoException("Contato não encontrado");
         }
     }
+
+    public ContatoExibicaoDto buscarContatoPeloEmail(String email) {
+        Optional<Contato> contatoOptional = contatoRepository.findByEmail(email);
+        if(contatoOptional.isPresent()) {
+            return new ContatoExibicaoDto(contatoOptional.get());
+        } else {
+            throw new UsuarioNaoEncontradoException("Contato não encontrado!");
+        }
+    }
 }
